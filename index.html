@@ -1,30 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Atlas do Amazonas — SEINFRA/AM</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <style>
-    :root{--azul:#002D72;--azul-hover:#003A8C;--azul-claro:#EBF0FA;--azul-borda:#C4D0E8;--amarelo:#F5A623;--verde:#007B3E;--vermelho:#C0392B;--roxo:#6C3483;--laranja:#E67E22;--ciano:#0E8A7D;--marrom:#8B6914;--rosa:#C2185B;--cinza-txt:#1A2540;--cinza-med:#4A5568;--cinza-aux:#8896A8;--cinza-bg:#F5F7FB;--borda:#E0E6F0;--branco:#FFFFFF;--font:'Outfit',sans-serif;--shadow:0 2px 16px rgba(0,45,114,.09),0 0 0 1px var(--borda);--shadow-lg:0 8px 32px rgba(0,45,114,.14);--radius:10px;--gov-azul:#293258;--gov-verde:#33A23D}
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html,body{height:100%}body{font-family:var(--font);background:var(--cinza-bg);color:var(--cinza-txt);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}::selection{background:rgba(0,45,114,.14)}
+    :root{--azul:#002D72;--azul-hover:#003A8C;--azul-claro:#EBF0FA;--azul-borda:#C4D0E8;--amarelo:#F5A623;--verde:#007B3E;--vermelho:#C0392B;--roxo:#6C3483;--laranja:#E67E22;--rosa:#C2185B;--marrom:#8B6914;--cinza-txt:#1A2540;--cinza-med:#4A5568;--cinza-aux:#8896A8;--cinza-bg:#F5F7FB;--borda:#E0E6F0;--branco:#FFFFFF;--font:'Outfit',sans-serif;--shadow:0 2px 16px rgba(0,45,114,.09),0 0 0 1px var(--borda);--shadow-lg:0 8px 32px rgba(0,45,114,.14);--radius:10px;--gov-azul:#293258;--gov-verde:#33A23D}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html,body{height:100%}
+    body{font-family:var(--font);background:var(--cinza-bg);color:var(--cinza-txt);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+    ::selection{background:rgba(0,45,114,.14)}
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes slideIn{from{transform:translateX(-100%);opacity:0}to{transform:translateX(0);opacity:1}}
 
-    .gov-header{background:#fff;padding:.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--azul);box-shadow:0 2px 12px rgba(41,50,88,.08);flex-shrink:0;z-index:1000}
-    .gov-header-logo img{height:60px;width:auto;display:block}
-    .gov-header-right{display:flex;align-items:center;gap:.7rem}
-    .gov-header-badge{font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--gov-azul);padding:.3em .9em;border-radius:100px}
-    .gov-header-back{font-size:.65rem;font-weight:600;color:var(--gov-azul);border:1.5px solid var(--gov-azul);padding:.28em .75em;border-radius:7px;text-decoration:none;transition:all .15s}
-    .gov-header-back:hover{background:var(--gov-azul);color:#fff}
-    .gov-header-status{display:flex;align-items:center;gap:.35rem;font-size:.58rem;font-weight:600;color:var(--gov-azul);letter-spacing:.08em;text-transform:uppercase;opacity:.7}
-    .gov-header-dot{width:6px;height:6px;border-radius:50%;background:var(--gov-verde);box-shadow:0 0 6px var(--gov-verde);animation:pulse 2s ease-in-out infinite}
-    @media(max-width:640px){.gov-header{padding:.4rem .8rem}.gov-header-logo img{height:44px}.gov-header-badge,.gov-header-status{display:none}}
+    /* GOV HEADER — padrao viario */
+    .topbar{background:var(--azul);padding:.4rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:1000}
+    .topbar-left{font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.5);font-weight:500}
+    .topbar-right{font-size:.62rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--amarelo);display:flex;align-items:center;gap:.5rem}
+    .topbar-dot{width:6px;height:6px;border-radius:50%;background:var(--amarelo);box-shadow:0 0 8px var(--amarelo);animation:pulse 2s ease-in-out infinite}
+    .site-header{background:var(--branco);border-bottom:2px solid var(--azul);padding:.7rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:1000;box-shadow:0 2px 12px rgba(0,45,114,.06);position:sticky;top:0}
+    .header-brand{display:flex;align-items:center;gap:.8rem}
+    .brand-escudo{width:40px;height:40px;border-radius:8px;background:var(--azul);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+    .brand-sup{font-size:.58rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--cinza-aux)}
+    .brand-name{font-size:1rem;font-weight:800;color:var(--azul)}.brand-name span{color:var(--amarelo)}
+    .header-nav{display:flex;align-items:center;gap:.75rem}
+    .header-badge{font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--azul);background:var(--azul-claro);border:1.5px solid var(--azul-borda);padding:.3em .85em;border-radius:100px}
+    .header-back{font-size:.68rem;font-weight:600;color:var(--azul);text-decoration:none;display:flex;align-items:center;gap:.3rem;opacity:.7;transition:opacity .2s}.header-back:hover{opacity:1}
+    @media(max-width:600px){.header-badge{display:none}}
 
     .map-wrap{flex:1;position:relative;min-height:0}#map{width:100%;height:100%;background:#c8d8e8}
 
+    /* LAYER PANEL */
     .lp{position:absolute;top:10px;right:10px;z-index:800;background:var(--branco);border-radius:var(--radius);box-shadow:var(--shadow-lg);width:280px;max-height:calc(100% - 20px);display:flex;flex-direction:column;transition:width .2s;overflow:hidden}
     .lp.collapsed{width:42px}.lp.collapsed .lp-body,.lp.collapsed .lp-ttl,.lp.collapsed .lp-cnt,.lp.collapsed .lp-srch{display:none}
     .lp-hdr{padding:.6rem .85rem;display:flex;align-items:center;gap:.5rem;border-bottom:1px solid var(--borda);background:var(--azul);cursor:pointer;flex-shrink:0;user-select:none}.lp-hdr:hover{background:var(--azul-hover)}
@@ -42,10 +50,13 @@
     .lg-it{display:none;padding:0 0 .3rem}.lg-h.open+.lg-it{display:block}
 
     .li{display:flex;align-items:center;gap:.4rem;padding:.25rem .85rem .25rem 2rem;cursor:pointer;transition:background .1s;user-select:none}.li.hid{display:none}.li:hover{background:var(--cinza-bg)}
-    .li-ck{width:14px;height:14px;border-radius:3px;border:1.5px solid var(--borda);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.5rem;color:#fff}.li.on .li-ck{border-color:var(--azul)}
+    .li-ck{width:15px;height:15px;border-radius:3px;border:1.5px solid var(--borda);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.55rem;color:#fff;transition:all .15s}
+    .li.on .li-ck{color:#fff}
     .li-sw{flex-shrink:0}.li-sw.ln{width:16px;height:3px;border-radius:2px}.li-sw.ld{width:16px;height:0;border-top:2.5px dashed}.li-sw.pt{width:7px;height:7px;border-radius:50%}.li-sw.pg{width:12px;height:9px;border-radius:2px;opacity:.6;border:1.5px solid}
+    .li-sw.ico{font-size:.75rem;width:16px;text-align:center}
     .li-lb{font-size:.64rem;font-weight:500;color:var(--cinza-med);line-height:1.15}.li.on .li-lb{color:var(--cinza-txt);font-weight:600}
 
+    /* MINI BI */
     .bi{position:absolute;top:10px;left:10px;z-index:800;background:var(--branco);border-radius:var(--radius);box-shadow:var(--shadow-lg);width:300px;max-height:calc(100% - 20px);display:none;flex-direction:column;overflow:hidden;animation:slideIn .3s ease}.bi.show{display:flex}
     .bi-hdr{padding:.6rem .85rem;background:var(--azul);display:flex;align-items:center;gap:.5rem;flex-shrink:0}.bi-hdr-ttl{font-size:.72rem;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.06em;flex:1}
     .bi-close{background:none;border:none;color:rgba(255,255,255,.6);font-size:1rem;cursor:pointer;padding:2px 6px;border-radius:4px}.bi-close:hover{color:#fff;background:rgba(255,255,255,.15)}
@@ -67,18 +78,36 @@
     .leaflet-popup-content{font-size:.75rem!important;line-height:1.4!important;margin:10px 14px!important}
     .pp-t{font-weight:800;color:var(--azul);font-size:.82rem;margin-bottom:4px;border-bottom:1.5px solid var(--azul-claro);padding-bottom:3px}
     .pp-r{display:flex;gap:.2rem;padding:1.5px 0}.pp-k{font-weight:700;color:var(--cinza-aux);font-size:.6rem;text-transform:uppercase;white-space:nowrap}.pp-v{font-weight:500;color:var(--cinza-txt)}
+
+    /* Custom icons */
+    .ico-marker{background:transparent!important;border:none!important;box-shadow:none!important}
+    .ico-inner{display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;font-size:14px;box-shadow:0 2px 6px rgba(0,0,0,.3);border:2px solid #fff}
+    /* Bairro labels */
+    .bairro-label{background:transparent!important;border:none!important;box-shadow:none!important}
+    .bairro-label div{font-family:var(--font);font-size:.55rem;font-weight:700;color:var(--roxo);text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff;white-space:nowrap;pointer-events:none}
+    /* Municipio labels */
+    .mun-label{background:transparent!important;border:none!important;box-shadow:none!important}
+    .mun-label div{font-family:var(--font);font-size:.6rem;font-weight:700;color:var(--azul);text-shadow:0 0 4px #fff,0 0 4px #fff;white-space:nowrap;pointer-events:none}
+
     @media(max-width:540px){.lp{width:240px;right:6px;top:6px}.lp.collapsed{width:38px}.bi{width:calc(100% - 12px);left:6px}}
   </style>
 </head>
 <body>
-<header class="gov-header">
-  <div class="gov-header-logo">
-    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='50' viewBox='0 0 220 50'%3E%3Crect fill='%23293258' rx='6' width='220' height='50'/%3E%3Ctext x='10' y='20' font-family='sans-serif' font-size='8' font-weight='bold' fill='%2333A23D'%3EGOVERNO DO AMAZONAS%3C/text%3E%3Ctext x='10' y='36' font-family='sans-serif' font-size='12' font-weight='bold' fill='white'%3ESEINFRA%3C/text%3E%3Ctext x='80' y='36' font-family='sans-serif' font-size='7' fill='%23FFED00'%3ESECRETARIA DE INFRAESTRUTURA%3C/text%3E%3C/svg%3E" alt="SEINFRA"/>
+<div class="topbar">
+  <div class="topbar-left">Governo do Estado do Amazonas &middot; SEINFRA</div>
+  <div class="topbar-right"><span class="topbar-dot"></span> DMOB</div>
+</div>
+<header class="site-header">
+  <div class="header-brand">
+    <div class="brand-escudo">&#127758;</div>
+    <div>
+      <div class="brand-sup">SEINFRA &middot; DMOB</div>
+      <div class="brand-name">Atlas <span>Amazonas</span></div>
+    </div>
   </div>
-  <div class="gov-header-right">
-    <div class="gov-header-status"><div class="gov-header-dot"></div>Atlas</div>
-    <div class="gov-header-badge">Atlas do Amazonas</div>
-    <a class="gov-header-back" href="https://leonzordhue.github.io/painel-dmob/" target="_blank">&#8592; Painel</a>
+  <div class="header-nav">
+    <a class="header-back" href="https://leonzordhue.github.io/painel-dmob/" target="_blank">&#8592; Painel</a>
+    <div class="header-badge">Infraestrutura &amp; Mobilidade</div>
   </div>
 </header>
 <div class="map-wrap">
@@ -97,23 +126,33 @@
 </div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-// AKE UFT-1.0 | Atlas do Amazonas v1.0.0
+// AKE UFT-1.0 | Atlas do Amazonas v1.1.0
 // @author Paulo Esteves Fernandes Neto - DMOB/SEINFRA-AM
-// @repo github.com/leonzordhue/atlas-amazonas
-const AKE_BUILD_LOG=[{build:'1.0.0-ake',data:'2026-04-09',autor:'PEFN',tipo:'GENESIS',axiomas:['LAYER_REGISTRY','toggleLayer','makeLayer','attachPopup','buildBi','filterLayers']}];
+// @build REV-2 | Cores Pedro Paiva, icones, rotulos, divisas municipais
+var AKE_BUILD_LOG=[{build:'1.0.0',tipo:'GENESIS',data:'2026-04-09'},{build:'1.1.0',tipo:'FEATURE',data:'2026-04-09',desc:'Cores PedroP, icones aero/porto, rotulos bairros, AM_MUNICIPIOS, checkbox fill'}];
 
-const REPO='https://raw.githubusercontent.com/leonzordhue/atlas-amazonas/main/';
+var REPO='https://raw.githubusercontent.com/leonzordhue/atlas-amazonas/main/';
 
-const REG=[
-{id:'rod_est',group:'Rodovi\u00e1rio',gc:'#002D72',gi:'\ud83d\udee3\ufe0f',label:'Rodovias Estaduais',gt:'line',st:{color:'#002D72',weight:3,opacity:.85},file:'RODOVIAS_ESTADUAIS_AMAZONAS.geojson',pt:function(p){return p['RODOVIA']||'Rodovia'},pf:[{k:'RODOVIA',l:'Rodovia'},{k:'IN\u00cdCIO',l:'In\u00edcio'},{k:'FIM',l:'Fim'},{k:'EXTENS\u00c3O',l:'Ext.(km)'},{k:'SITUA\u00c7\u00c3O',l:'Situa\u00e7\u00e3o'},{k:'TIPO DE RE',l:'Revestimento'},{k:'REGI\u00c3O',l:'Regi\u00e3o'}],on:true},
-{id:'rod_fed',group:'Rodovi\u00e1rio',gc:'#002D72',gi:'\ud83d\udee3\ufe0f',label:'Rodovias Federais',gt:'line',st:{color:'#C0392B',weight:2.5,opacity:.75},file:'RODOVIAS_FEDERAIS.geojson',pt:function(p){return 'BR-'+(p['Codigo_BR']||'?')},pf:[{k:'Codigo_BR',l:'BR'},{k:'Nome_Tipo_',l:'Tipo'},{k:'Local_Inic',l:'In\u00edcio'},{k:'Local_Fim',l:'Fim'},{k:'Extensao',l:'Ext.(km)'},{k:'Superficie',l:'Superf\u00edcie'},{k:'Administra',l:'Administra\u00e7\u00e3o'}]},
-{id:'ramais',group:'Rodovi\u00e1rio',gc:'#002D72',gi:'\ud83d\udee3\ufe0f',label:'Ramais SEINFRA',gt:'line-dash',st:{color:'#8B6914',weight:2,opacity:.7,dashArray:'6 4'},file:'RAMAIS_SEINFRA.geojson',pt:function(p){return p['Descri\u00e7\u00e3']||p['Descri\u00e7_1']||'Ramal'},pf:[{k:'Descri\u00e7\u00e3',l:'Nome'},{k:'Munic\u00edpio',l:'Munic\u00edpio'},{k:'Extens\u00e3o',l:'Extens\u00e3o'},{k:'Classifica',l:'Classif.'},{k:'Revestimen',l:'Revestim.'},{k:'Situa\u00e7\u00e3o',l:'Situa\u00e7\u00e3o'},{k:'Prioridade',l:'Prioridade'},{k:'Calha',l:'Calha'}],bi:{title:'\ud83d\udcca Ramais SEINFRA \u2014 Analytics',stats:[{label:'Total Ramais',fn:function(d){return d.features.length}},{label:'Munic\u00edpios',fn:function(d){return new Set(d.features.map(function(f){return f.properties['Munic\u00edpio']}).filter(Boolean)).size}}],bars:[{label:'Por Classifica\u00e7\u00e3o',field:'Classifica',top:6,color:'#8B6914'},{label:'Por Calha',field:'Calha',top:8,color:'#002D72'},{label:'Por Prioridade',field:'Prioridade',top:5,color:'#C0392B'},{label:'Por Situa\u00e7\u00e3o',field:'Situa\u00e7\u00e3o',top:5,color:'#007B3E'}]}},
-{id:'hidrovias',group:'Hidrovi\u00e1rio',gc:'#2980B9',gi:'\ud83d\udea2',label:'Hidrovias',gt:'line',st:{color:'#2980B9',weight:2.5,opacity:.7},file:'HIDROVIAS.geojson',pt:function(p){return p['name']||p['folders']||'Hidrovia'},pf:[{k:'name',l:'Nome'},{k:'folders',l:'C\u00f3digo SNV'}]},
-{id:'terminais',group:'Hidrovi\u00e1rio',gc:'#2980B9',gi:'\ud83d\udea2',label:'Terminais Flutuantes',gt:'point',st:{color:'#1565C0',radius:6},file:'TERMINAIS_FLUTUANTES_SEINFRA.geojson',pt:function(p){return p['Localidade']||'Terminal'},pf:[{k:'Localidade',l:'Localidade'},{k:'Destino',l:'Destino'}]},
-{id:'aerodromos',group:'Aeroportu\u00e1rio',gc:'#E67E22',gi:'\u2708\ufe0f',label:'Aer\u00f3dromos',gt:'point',st:{color:'#E67E22',radius:7},file:'AERODROMOS_SEINFRA.geojson',pt:function(p){return p['Nome']||'Aer\u00f3dromo'},pf:[{k:'Nome',l:'Nome'},{k:'CIAD',l:'CIAD'},{k:'Outorga',l:'Outorga'},{k:'Compriment',l:'Pista(m)'},{k:'Largura 1',l:'Largura(m)'}]},
-{id:'bairros',group:'Territorial',gc:'#6C3483',gi:'\ud83c\udfe0',label:'Bairros',gt:'polygon',st:{color:'#6C3483',fillColor:'#6C3483',fillOpacity:.06,weight:1,opacity:.5},file:'BAIRROS.geojson',pt:function(p){return p['NM_BAIRRO']||'Bairro'},pf:[{k:'NM_BAIRRO',l:'Bairro'},{k:'NM_MUN',l:'Munic\u00edpio'},{k:'NM_DIST',l:'Distrito'},{k:'AREA_KM2',l:'\u00c1rea(km\u00b2)'}]},
-{id:'uc',group:'Territorial',gc:'#6C3483',gi:'\ud83c\udfe0',label:'Unid. de Conserva\u00e7\u00e3o',gt:'polygon',st:{color:'#007B3E',fillColor:'#007B3E',fillOpacity:.1,weight:1.5,opacity:.6},file:'UNIDADE_DE_CONSERVACAO.geojson',pt:function(p){return p['nome']||'UC'},pf:[{k:'nome',l:'Nome'},{k:'categoria',l:'Categoria'},{k:'grupo',l:'Grupo'},{k:'esfera',l:'Esfera'},{k:'ano_cria',l:'Ano'},{k:'AREA_KM2',l:'\u00c1rea(km\u00b2)'}]},
-{id:'sitios',group:'Patrim\u00f4nio Cultural',gc:'#C2185B',gi:'\ud83c\udfdb\ufe0f',label:'S\u00edtios Arqueol\u00f3gicos (IPHAN)',gt:'point',st:{color:'#C2185B',radius:5},file:'SITIOS_ARQ_-_IPHAN.geojson',pt:function(p){return p['identifica']||'S\u00edtio'},pf:[{k:'identifica',l:'Identifica\u00e7\u00e3o'},{k:'ds_naturez',l:'Natureza'},{k:'ds_classif',l:'Classifica\u00e7\u00e3o'},{k:'ds_tipo_be',l:'Tipo'},{k:'co_iphan',l:'C\u00f3d. IPHAN'}]},
+var REG=[
+// RODOVIARIO
+{id:'rod_est',group:'Rodovi\u00e1rio',gc:'#007B3E',gi:'\ud83d\udee3\ufe0f',label:'Rodovias Estaduais',gt:'line',st:{color:'#007B3E',weight:3,opacity:.85},ckColor:'#007B3E',file:'RODOVIAS_ESTADUAIS_AMAZONAS.geojson',pt:function(p){return p['RODOVIA']||'Rodovia'},pf:[{k:'RODOVIA',l:'Rodovia'},{k:'IN\u00cdCIO',l:'In\u00edcio'},{k:'FIM',l:'Fim'},{k:'EXTENS\u00c3O',l:'Ext.(km)'},{k:'SITUA\u00c7\u00c3O',l:'Situa\u00e7\u00e3o'},{k:'TIPO DE RE',l:'Revestimento'},{k:'REGI\u00c3O',l:'Regi\u00e3o'}],on:true},
+{id:'rod_fed',group:'Rodovi\u00e1rio',gc:'#007B3E',gi:'\ud83d\udee3\ufe0f',label:'Rodovias Federais',gt:'line',st:{color:'#C0392B',weight:2.5,opacity:.75},ckColor:'#C0392B',file:'RODOVIAS_FEDERAIS.geojson',pt:function(p){return 'BR-'+(p['Codigo_BR']||'?')},pf:[{k:'Codigo_BR',l:'BR'},{k:'Nome_Tipo_',l:'Tipo'},{k:'Local_Inic',l:'In\u00edcio'},{k:'Local_Fim',l:'Fim'},{k:'Extensao',l:'Ext.(km)'},{k:'Superficie',l:'Superf.'},{k:'Administra',l:'Admin.'}]},
+{id:'ramais',group:'Rodovi\u00e1rio',gc:'#007B3E',gi:'\ud83d\udee3\ufe0f',label:'Ramais SEINFRA',gt:'line-dash',st:{color:'#F5A623',weight:2,opacity:.8,dashArray:'6 4'},ckColor:'#F5A623',file:'RAMAIS_SEINFRA.geojson',pt:function(p){return p['Descri\u00e7\u00e3']||p['Descri\u00e7_1']||'Ramal'},pf:[{k:'Descri\u00e7\u00e3',l:'Nome'},{k:'Munic\u00edpio',l:'Munic\u00edpio'},{k:'Extens\u00e3o',l:'Extens\u00e3o'},{k:'Classifica',l:'Classif.'},{k:'Revestimen',l:'Revestim.'},{k:'Situa\u00e7\u00e3o',l:'Situa\u00e7\u00e3o'},{k:'Prioridade',l:'Prioridade'},{k:'Calha',l:'Calha'}],bi:{title:'\ud83d\udcca Ramais SEINFRA',stats:[{label:'Total Ramais',fn:function(d){return d.features.length}},{label:'Munic\u00edpios',fn:function(d){return new Set(d.features.map(function(f){return f.properties['Munic\u00edpio']}).filter(Boolean)).size}}],bars:[{label:'Classifica\u00e7\u00e3o',field:'Classifica',top:6,color:'#F5A623'},{label:'Calha',field:'Calha',top:8,color:'#002D72'},{label:'Prioridade',field:'Prioridade',top:5,color:'#C0392B'},{label:'Situa\u00e7\u00e3o',field:'Situa\u00e7\u00e3o',top:5,color:'#007B3E'}]}},
+
+// HIDROVIARIO
+{id:'hidrovias',group:'Hidrovi\u00e1rio',gc:'#2980B9',gi:'\ud83d\udea2',label:'Hidrovias',gt:'line',st:{color:'#2980B9',weight:2.5,opacity:.7},ckColor:'#2980B9',file:'HIDROVIAS.geojson',pt:function(p){return p['name']||p['folders']||'Hidrovia'},pf:[{k:'name',l:'Nome'},{k:'folders',l:'C\u00f3digo SNV'}]},
+{id:'terminais',group:'Hidrovi\u00e1rio',gc:'#2980B9',gi:'\ud83d\udea2',label:'Terminais Flutuantes',gt:'icon',icon:'\u2693',st:{color:'#1565C0'},ckColor:'#1565C0',file:'TERMINAIS_FLUTUANTES_SEINFRA.geojson',pt:function(p){return p['Localidade']||'Terminal'},pf:[{k:'Localidade',l:'Localidade'},{k:'Destino',l:'Destino'}]},
+
+// AEROPORTUARIO
+{id:'aerodromos',group:'Aeroportu\u00e1rio',gc:'#E67E22',gi:'\u2708\ufe0f',label:'Aer\u00f3dromos SEINFRA',gt:'icon',icon:'\u2708\ufe0f',st:{color:'#002D72'},ckColor:'#002D72',file:'AERODROMOS_SEINFRA.geojson',pt:function(p){return p['Nome']||'Aer\u00f3dromo'},pf:[{k:'Nome',l:'Nome'},{k:'CIAD',l:'CIAD'},{k:'Outorga',l:'Outorga'},{k:'Compriment',l:'Pista(m)'},{k:'Largura 1',l:'Largura(m)'}]},
+
+// TERRITORIAL
+{id:'municipios',group:'Territorial',gc:'#0E8A7D',gi:'\ud83c\udfe0',label:'Divisas Municipais',gt:'polygon',st:{color:'#0E8A7D',fillColor:'#0E8A7D',fillOpacity:.03,weight:1.5,opacity:.6},ckColor:'#0E8A7D',file:'AM_MUNICIPIOS.geojson',pt:function(p){return p['NM_MUN']||'Munic\u00edpio'},pf:[{k:'NM_MUN',l:'Munic\u00edpio'},{k:'CD_MUN',l:'C\u00f3d. IBGE'},{k:'NM_RGINT',l:'Regi\u00e3o'},{k:'AREA_KM2',l:'\u00c1rea(km\u00b2)'}],labels:{field:'NM_MUN',cls:'mun-label',minZoom:8}},
+{id:'bairros',group:'Territorial',gc:'#0E8A7D',gi:'\ud83c\udfe0',label:'Bairros',gt:'polygon',st:{color:'#6C3483',fillColor:'#6C3483',fillOpacity:.08,weight:1,opacity:.5},ckColor:'#6C3483',file:'BAIRROS.geojson',pt:function(p){return p['NM_BAIRRO']||'Bairro'},pf:[{k:'NM_BAIRRO',l:'Bairro'},{k:'NM_MUN',l:'Munic\u00edpio'},{k:'NM_DIST',l:'Distrito'},{k:'AREA_KM2',l:'\u00c1rea(km\u00b2)'}],labels:{field:'NM_BAIRRO',cls:'bairro-label',minZoom:12}},
+{id:'uc',group:'Territorial',gc:'#0E8A7D',gi:'\ud83c\udfe0',label:'Unid. de Conserva\u00e7\u00e3o',gt:'polygon',st:{color:'#007B3E',fillColor:'#007B3E',fillOpacity:.1,weight:1.5,opacity:.6},ckColor:'#007B3E',file:'UNIDADE_DE_CONSERVACAO.geojson',pt:function(p){return p['nome']||'UC'},pf:[{k:'nome',l:'Nome'},{k:'categoria',l:'Categoria'},{k:'grupo',l:'Grupo'},{k:'esfera',l:'Esfera'},{k:'ano_cria',l:'Ano'},{k:'AREA_KM2',l:'\u00c1rea(km\u00b2)'}]},
+
+// PATRIMONIO
+{id:'sitios',group:'Patrim\u00f4nio Cultural',gc:'#C2185B',gi:'\ud83c\udfdb\ufe0f',label:'S\u00edtios Arqueol\u00f3gicos (IPHAN)',gt:'point',st:{color:'#C2185B',radius:5},ckColor:'#C2185B',file:'SITIOS_ARQ_-_IPHAN.geojson',pt:function(p){return p['identifica']||'S\u00edtio'},pf:[{k:'identifica',l:'Identifica\u00e7\u00e3o'},{k:'ds_naturez',l:'Natureza'},{k:'ds_classif',l:'Classifica\u00e7\u00e3o'},{k:'ds_tipo_be',l:'Tipo'},{k:'co_iphan',l:'C\u00f3d. IPHAN'}]},
 ];
 
 var map=L.map('map',{center:[-3.4,-64],zoom:6,zoomControl:false,attributionControl:false});
@@ -123,26 +162,49 @@ var aBase='Padr\u00e3o';BASES[aBase].addTo(map);
 
 map.on('mousemove',function(e){var la=e.latlng.lat.toFixed(4),lo=e.latlng.lng.toFixed(4);document.getElementById('coord').textContent=Math.abs(la)+'\u00b0 '+(la<0?'S':'N')+', '+Math.abs(lo)+'\u00b0 '+(lo<0?'W':'E')});
 
-var S={};REG.forEach(function(c){S[c.id]={c:c,lyr:null,data:null,ok:false}});
+var S={};REG.forEach(function(c){S[c.id]={c:c,lyr:null,lblLyr:null,data:null,ok:false}});
 
 function buildPanel(){var body=document.getElementById('lpBody');var G={};REG.forEach(function(c){if(!G[c.group])G[c.group]={gc:c.gc,gi:c.gi,items:[]};G[c.group].items.push(c)});var h='';
 Object.keys(G).forEach(function(gn){var g=G[gn];var ao=g.items.some(function(c){return c.on});
 h+='<div class="lg" data-g="'+gn+'"><div class="lg-h'+(ao?' open':'')+'" onclick="tgGrp(this)"><span class="lg-ch">\u25b6</span><span class="lg-dt" style="background:'+g.gc+'"></span><span class="lg-nm">'+g.gi+' '+gn+'</span><span class="lg-ta" onclick="event.stopPropagation();tgAll(\''+gn+'\')">todos</span></div><div class="lg-it">';
-g.items.forEach(function(c){var a=c.on?' on':'';var sc=c.gt==='point'?'pt':c.gt==='polygon'?'pg':c.gt==='line-dash'?'ld':'ln';var ss=c.gt==='polygon'?'background:'+c.st.fillColor+';border-color:'+c.st.color:c.gt==='line-dash'?'border-color:'+c.st.color:'background:'+c.st.color;
-h+='<div class="li'+a+'" data-id="'+c.id+'" data-lb="'+c.label.toLowerCase()+'" onclick="tgLyr(\''+c.id+'\',this)"><span class="li-ck">'+(c.on?'\u2713':'')+'</span><span class="li-sw '+sc+'" style="'+ss+'"></span><span class="li-lb">'+c.label+'</span></div>'});
+g.items.forEach(function(c){var a=c.on?' on':'';
+var swHtml='';
+if(c.gt==='icon')swHtml='<span class="li-sw ico">'+c.icon+'</span>';
+else if(c.gt==='point')swHtml='<span class="li-sw pt" style="background:'+c.st.color+'"></span>';
+else if(c.gt==='polygon')swHtml='<span class="li-sw pg" style="background:'+(c.st.fillColor||c.st.color)+';border-color:'+c.st.color+'"></span>';
+else if(c.gt==='line-dash')swHtml='<span class="li-sw ld" style="border-color:'+c.st.color+'"></span>';
+else swHtml='<span class="li-sw ln" style="background:'+c.st.color+'"></span>';
+var ckStyle=c.on?'background:'+c.ckColor+';border-color:'+c.ckColor:'';
+h+='<div class="li'+a+'" data-id="'+c.id+'" data-lb="'+c.label.toLowerCase()+'" data-ck="'+c.ckColor+'" onclick="tgLyr(\''+c.id+'\',this)"><span class="li-ck" style="'+ckStyle+'">'+(c.on?'\u2713':'')+'</span>'+swHtml+'<span class="li-lb">'+c.label+'</span></div>'});
 h+='</div></div>'});
 h+='<div class="lg" data-g="__base"><div class="lg-h" onclick="tgGrp(this)"><span class="lg-ch">\u25b6</span><span class="lg-dt" style="background:#555"></span><span class="lg-nm">\ud83c\udf10 Mapa Base</span></div><div class="lg-it">';
-Object.keys(BASES).forEach(function(n,i){h+='<div class="li'+(i===0?' on':'')+'" data-base="'+n+'" onclick="swBase(\''+n+'\',this)"><span class="li-ck">'+(i===0?'\u2713':'')+'</span><span class="li-sw ln" style="background:#888"></span><span class="li-lb">'+n+'</span></div>'});
+Object.keys(BASES).forEach(function(n,i){h+='<div class="li'+(i===0?' on':'')+'" data-base="'+n+'" data-ck="#555" onclick="swBase(\''+n+'\',this)"><span class="li-ck" style="'+(i===0?'background:#555;border-color:#555':'')+'">'+(i===0?'\u2713':'')+'</span><span class="li-sw ln" style="background:#888"></span><span class="li-lb">'+n+'</span></div>'});
 h+='</div></div>';body.innerHTML=h;updCnt()}
 
-function tgLyr(id,el){var st=S[id];var isOn=el.classList.toggle('on');el.querySelector('.li-ck').textContent=isOn?'\u2713':'';
-if(isOn){if(!st.ok){showLoad('Carregando '+st.c.label+'...');fetch(REPO+st.c.file).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(function(data){st.data=data;st.ok=true;hideLoad();st.lyr=mkLyr(st.c,st.data);st.lyr.addTo(map);if(st.c.bi)buildBi(st.c,st.data);updCnt()}).catch(function(e){hideLoad();el.classList.remove('on');el.querySelector('.li-ck').textContent='';alert('Erro: '+st.c.label+'\n'+e.message+'\n\nVerifique se '+st.c.file+' existe no repo.')});return}st.lyr=mkLyr(st.c,st.data);st.lyr.addTo(map);if(st.c.bi)buildBi(st.c,st.data)}else{if(st.lyr){map.removeLayer(st.lyr);st.lyr=null}if(st.c.bi)closeBi()}updCnt()}
+function tgLyr(id,el){var st=S[id];var isOn=el.classList.toggle('on');var ck=el.querySelector('.li-ck');var col=el.dataset.ck;
+if(isOn){ck.textContent='\u2713';ck.style.background=col;ck.style.borderColor=col}else{ck.textContent='';ck.style.background='';ck.style.borderColor=''}
+if(isOn){if(!st.ok){showLoad('Carregando '+st.c.label+'...');fetch(REPO+st.c.file).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(function(data){st.data=data;st.ok=true;hideLoad();addLayer(st);updCnt()}).catch(function(e){hideLoad();el.classList.remove('on');ck.textContent='';ck.style.background='';ck.style.borderColor='';alert('Erro: '+st.c.label+'\n'+e.message)});return}addLayer(st)}else{rmLayer(st)}updCnt()}
 
-function mkLyr(c,data){if(c.gt==='point'){return L.geoJSON(data,{pointToLayer:function(_,ll){return L.circleMarker(ll,{radius:c.st.radius||5,fillColor:c.st.color,color:'#fff',weight:1.5,fillOpacity:.85})},onEachFeature:function(f,l){mkPop(f,l,c)}})}
+function addLayer(st){var c=st.c;st.lyr=mkLyr(c,st.data);st.lyr.addTo(map);
+if(c.labels){st.lblLyr=L.layerGroup();addLabels(st);st.lblLyr.addTo(map);map.on('zoomend',function(){toggleLabels(st)})}
+if(c.bi)buildBi(c,st.data)}
+
+function rmLayer(st){if(st.lyr){map.removeLayer(st.lyr);st.lyr=null}if(st.lblLyr){map.removeLayer(st.lblLyr);st.lblLyr=null}if(st.c.bi)closeBi()}
+
+function addLabels(st){var c=st.c;st.data.features.forEach(function(f){var name=f.properties[c.labels.field];if(!name)return;var geo=f.geometry;var center=getCentroid(geo);if(!center)return;var lbl=L.marker(center,{icon:L.divIcon({className:c.labels.cls,html:'<div>'+name+'</div>',iconSize:[0,0]})});st.lblLyr.addLayer(lbl)});toggleLabels(st)}
+
+function toggleLabels(st){if(!st.lblLyr||!st.c.labels)return;var z=map.getZoom();if(z>=st.c.labels.minZoom){if(!map.hasLayer(st.lblLyr))map.addLayer(st.lblLyr)}else{if(map.hasLayer(st.lblLyr))map.removeLayer(st.lblLyr)}}
+
+function getCentroid(geo){if(!geo)return null;var coords;if(geo.type==='Polygon')coords=geo.coordinates[0];else if(geo.type==='MultiPolygon'){var biggest=geo.coordinates.reduce(function(b,p){return p[0].length>b[0].length?p:b});coords=biggest[0]}else return null;
+var cx=0,cy=0;coords.forEach(function(c){cx+=c[0];cy+=c[1]});return[cy/coords.length,cx/coords.length]}
+
+function mkLyr(c,data){
+if(c.gt==='icon'){return L.geoJSON(data,{pointToLayer:function(_,ll){return L.marker(ll,{icon:L.divIcon({className:'ico-marker',html:'<div class="ico-inner" style="background:'+c.st.color+'">'+c.icon+'</div>',iconSize:[24,24],iconAnchor:[12,12]})})},onEachFeature:function(f,l){mkPop(f,l,c)}})}
+if(c.gt==='point'){return L.geoJSON(data,{pointToLayer:function(_,ll){return L.circleMarker(ll,{radius:c.st.radius||5,fillColor:c.st.color,color:'#fff',weight:1.5,fillOpacity:.85})},onEachFeature:function(f,l){mkPop(f,l,c)}})}
 return L.geoJSON(data,{style:function(){return{color:c.st.color,weight:c.st.weight||2,opacity:c.st.opacity||.8,dashArray:c.st.dashArray||null,fillColor:c.st.fillColor||'transparent',fillOpacity:c.st.fillOpacity||0}},onEachFeature:function(f,l){mkPop(f,l,c)}})}
 
 function mkPop(feat,layer,c){var p=feat.properties||{};
-if(c.gt!=='point'){layer.on('mouseover',function(){layer.setStyle({weight:(c.st.weight||2)+2,opacity:1})});layer.on('mouseout',function(){layer.setStyle({weight:c.st.weight||2,opacity:c.st.opacity||.8})})}
+if(c.gt!=='point'&&c.gt!=='icon'){layer.on('mouseover',function(){layer.setStyle({weight:(c.st.weight||2)+2,opacity:1})});layer.on('mouseout',function(){layer.setStyle({weight:c.st.weight||2,opacity:c.st.opacity||.8})})}
 layer.on('click',function(){var t;try{t=c.pt(p)}catch(e){t=c.label}
 var rows=(c.pf||[]).map(function(fd){var v=p[fd.k];if(v===null||v===undefined||v==='')return '';var d=typeof v==='number'?v.toLocaleString('pt-BR'):v;return '<div class="pp-r"><span class="pp-k">'+fd.l+':</span> <span class="pp-v">'+d+'</span></div>'}).filter(Boolean).join('');
 layer.bindPopup('<div class="pp-t">'+t+'</div>'+(rows||'<span style="color:#aaa;font-size:.65rem">Sem dados</span>')).openPopup()})}
@@ -156,7 +218,9 @@ document.getElementById('biBody').innerHTML=h;document.getElementById('biPanel')
 function closeBi(){document.getElementById('biPanel').classList.remove('show')}
 
 function tgAll(gn){var items=document.querySelectorAll('.lg[data-g="'+gn+'"] .li[data-id]');var allOn=Array.from(items).every(function(e){return e.classList.contains('on')});items.forEach(function(e){var isOn=e.classList.contains('on');if(allOn&&isOn)tgLyr(e.dataset.id,e);if(!allOn&&!isOn)tgLyr(e.dataset.id,e)})}
-function swBase(n,el){if(n===aBase)return;map.removeLayer(BASES[aBase]);BASES[n].addTo(map);BASES[n].bringToBack();aBase=n;document.querySelectorAll('[data-base]').forEach(function(e){e.classList.remove('on');e.querySelector('.li-ck').textContent=''});el.classList.add('on');el.querySelector('.li-ck').textContent='\u2713'}
+function swBase(n,el){if(n===aBase)return;map.removeLayer(BASES[aBase]);BASES[n].addTo(map);BASES[n].bringToBack();aBase=n;
+document.querySelectorAll('[data-base]').forEach(function(e){e.classList.remove('on');var ck=e.querySelector('.li-ck');ck.textContent='';ck.style.background='';ck.style.borderColor=''});
+el.classList.add('on');var ck=el.querySelector('.li-ck');ck.textContent='\u2713';ck.style.background='#555';ck.style.borderColor='#555'}
 function filterLayers(q){q=q.toLowerCase().trim();document.querySelectorAll('.li[data-id]').forEach(function(e){e.classList.toggle('hid',q&&!e.dataset.lb.includes(q))});document.querySelectorAll('.lg[data-g]').forEach(function(g){if(g.dataset.g==='__base')return;var vis=g.querySelectorAll('.li[data-id]:not(.hid)');g.classList.toggle('hid',q&&vis.length===0);if(q&&vis.length>0)g.querySelector('.lg-h').classList.add('open')})}
 function togglePanel(){document.getElementById('lp').classList.toggle('collapsed')}
 function tgGrp(el){el.classList.toggle('open')}
@@ -165,7 +229,7 @@ function showLoad(t){document.getElementById('loadTxt').textContent=t;document.g
 function hideLoad(){document.getElementById('loadPill').classList.remove('show')}
 
 buildPanel();
-document.querySelectorAll('.li.on[data-id]').forEach(function(el){el.classList.remove('on');el.querySelector('.li-ck').textContent='';tgLyr(el.dataset.id,el)});
+document.querySelectorAll('.li.on[data-id]').forEach(function(el){el.classList.remove('on');var ck=el.querySelector('.li-ck');ck.textContent='';ck.style.background='';ck.style.borderColor='';tgLyr(el.dataset.id,el)});
 </script>
 </body>
 </html>
