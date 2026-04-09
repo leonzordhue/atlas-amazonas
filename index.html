@@ -89,7 +89,19 @@
     .mun-label{background:transparent!important;border:none!important;box-shadow:none!important}
     .mun-label div{font-family:var(--font);font-size:.6rem;font-weight:700;color:var(--azul);text-shadow:0 0 4px #fff,0 0 4px #fff;white-space:nowrap;pointer-events:none}
 
-    @media(max-width:540px){.lp{width:240px;right:6px;top:6px}.lp.collapsed{width:38px}.bi{width:calc(100% - 12px);left:6px}}
+    /* FILTRO RAMAL */
+    .rf{position:absolute;bottom:14px;left:10px;z-index:800;background:var(--branco);border-radius:var(--radius);box-shadow:var(--shadow-lg);width:290px;display:none;flex-direction:column;overflow:hidden;animation:slideIn .3s ease}.rf.show{display:flex}
+    .rf-hdr{padding:.5rem .85rem;background:var(--amarelo);display:flex;align-items:center;gap:.5rem;flex-shrink:0}
+    .rf-ico{font-size:.9rem}.rf-ttl{font-size:.68rem;font-weight:800;color:var(--azul);text-transform:uppercase;letter-spacing:.07em;flex:1}
+    .rf-badge{font-size:.55rem;font-weight:700;background:var(--azul);color:#fff;padding:.15em .5em;border-radius:100px}
+    .rf-body{padding:.6rem .75rem;display:flex;flex-direction:column;gap:.45rem}
+    .rf-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--cinza-aux)}
+    .rf-select{width:100%;font-family:var(--font);font-size:.72rem;padding:.38rem .55rem;border:1.5px solid var(--borda);border-radius:6px;outline:none;color:var(--cinza-txt);background:var(--cinza-bg);cursor:pointer}.rf-select:focus{border-color:var(--amarelo)}
+    .rf-input{width:100%;font-family:var(--font);font-size:.72rem;padding:.38rem .55rem;border:1.5px solid var(--borda);border-radius:6px;outline:none;color:var(--cinza-txt)}.rf-input:focus{border-color:var(--amarelo)}
+    .rf-result{font-size:.62rem;font-weight:600;color:var(--cinza-aux);text-align:center;padding:.2rem 0}
+    .rf-btn{width:100%;font-family:var(--font);font-size:.68rem;font-weight:700;padding:.38rem;border:none;border-radius:6px;cursor:pointer;background:var(--azul-claro);color:var(--azul);transition:background .15s}.rf-btn:hover{background:var(--azul-borda)}
+
+    @media(max-width:540px){.lp{width:240px;right:6px;top:6px}.lp.collapsed{width:38px}.bi{width:calc(100% - 12px);left:6px}.rf{width:calc(100% - 12px);left:6px;bottom:6px}}
   </style>
 </head>
 <body>
@@ -123,6 +135,22 @@
   </div>
   <div class="load-pill" id="loadPill"><div class="load-sp"></div><span id="loadTxt">Carregando...</span></div>
   <div class="coord" id="coord">-3.12 S, 60.02 W</div>
+  <!-- FILTRO RAMAIS -->
+  <div class="rf" id="rfPanel">
+    <div class="rf-hdr"><span class="rf-ico">🔍</span><span class="rf-ttl">Filtro — Ramais</span><span class="rf-badge" id="rfCount">0</span></div>
+    <div class="rf-body">
+      <div>
+        <div class="rf-label">Município</div>
+        <select class="rf-select" id="rfMun" onchange="applyRamalFilter()"><option value="">Todos os municípios</option></select>
+      </div>
+      <div>
+        <div class="rf-label">Pesquisar ramal</div>
+        <input class="rf-input" id="rfSearch" type="text" placeholder="Nome do ramal..." oninput="applyRamalFilter()"/>
+      </div>
+      <div class="rf-result" id="rfResult"></div>
+      <button class="rf-btn" onclick="clearRamalFilter()">✕ Limpar filtros</button>
+    </div>
+  </div>
 </div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
@@ -187,9 +215,10 @@ if(isOn){if(!st.ok){showLoad('Carregando '+st.c.label+'...');fetch(REPO+st.c.fil
 
 function addLayer(st){var c=st.c;st.lyr=mkLyr(c,st.data);st.lyr.addTo(map);
 if(c.labels){st.lblLyr=L.layerGroup();addLabels(st);st.lblLyr.addTo(map);map.on('zoomend',function(){toggleLabels(st)})}
-if(c.bi)buildBi(c,st.data)}
+if(c.bi)buildBi(c,st.data);
+if(c.id==='ramais')openRamalFilter(st.data)}
 
-function rmLayer(st){if(st.lyr){map.removeLayer(st.lyr);st.lyr=null}if(st.lblLyr){map.removeLayer(st.lblLyr);st.lblLyr=null}if(st.c.bi)closeBi()}
+function rmLayer(st){if(st.lyr){map.removeLayer(st.lyr);st.lyr=null}if(st.lblLyr){map.removeLayer(st.lblLyr);st.lblLyr=null}if(st.c.bi)closeBi();if(st.c.id==='ramais')closeRamalFilter()}
 
 function addLabels(st){var c=st.c;st.data.features.forEach(function(f){var name=f.properties[c.labels.field];if(!name)return;var geo=f.geometry;var center=getCentroid(geo);if(!center)return;var lbl=L.marker(center,{icon:L.divIcon({className:c.labels.cls,html:'<div>'+name+'</div>',iconSize:[0,0]})});st.lblLyr.addLayer(lbl)});toggleLabels(st)}
 
@@ -227,6 +256,45 @@ function tgGrp(el){el.classList.toggle('open')}
 function updCnt(){document.getElementById('lpCnt').textContent=document.querySelectorAll('.li.on[data-id]').length}
 function showLoad(t){document.getElementById('loadTxt').textContent=t;document.getElementById('loadPill').classList.add('show')}
 function hideLoad(){document.getElementById('loadPill').classList.remove('show')}
+
+// ===== FILTRO RAMAIS =====
+function openRamalFilter(data){
+  var muns=[];
+  data.features.forEach(function(f){var m=f.properties['Município']||f.properties['Municipio'];if(m&&muns.indexOf(m)<0)muns.push(m)});
+  muns.sort(function(a,b){return a.localeCompare(b,'pt-BR')});
+  var sel=document.getElementById('rfMun');
+  sel.innerHTML='<option value="">Todos os municípios</option>';
+  muns.forEach(function(m){var o=document.createElement('option');o.value=m;o.textContent=m;sel.appendChild(o)});
+  document.getElementById('rfSearch').value='';
+  document.getElementById('rfPanel').classList.add('show');
+  applyRamalFilter();
+}
+function closeRamalFilter(){document.getElementById('rfPanel').classList.remove('show')}
+
+function applyRamalFilter(){
+  var st=S['ramais'];if(!st||!st.lyr)return;
+  var mun=document.getElementById('rfMun').value.toLowerCase().trim();
+  var srch=document.getElementById('rfSearch').value.toLowerCase().trim();
+  var total=0,shown=0;
+  st.lyr.eachLayer(function(l){
+    var p=l.feature.properties||{};
+    var pm=(p['Município']||p['Municipio']||'').toLowerCase();
+    var pn=(p['Descrição']||p['Descri\u00e7\u00e3']||p['Descri\u00e7_1']||'').toLowerCase();
+    var okM=!mun||pm===mun;
+    var okS=!srch||pn.includes(srch)||pm.includes(srch);
+    total++;
+    if(okM&&okS){l.setStyle({opacity:.8,weight:2});shown++;if(l._path)l._path.style.display=''}
+    else{l.setStyle({opacity:0,weight:0});if(l._path)l._path.style.display='none'}
+  });
+  document.getElementById('rfCount').textContent=shown;
+  document.getElementById('rfResult').textContent=shown===total?'Exibindo todos os '+total+' ramais':'Exibindo '+shown+' de '+total+' ramais';
+}
+function clearRamalFilter(){
+  document.getElementById('rfMun').value='';
+  document.getElementById('rfSearch').value='';
+  applyRamalFilter();
+}
+// ===== FIM FILTRO RAMAIS =====
 
 buildPanel();
 document.querySelectorAll('.li.on[data-id]').forEach(function(el){el.classList.remove('on');var ck=el.querySelector('.li-ck');ck.textContent='';ck.style.background='';ck.style.borderColor='';tgLyr(el.dataset.id,el)});
