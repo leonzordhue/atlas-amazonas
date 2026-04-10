@@ -72,6 +72,16 @@
 
     .load-pill{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:800;background:var(--branco);border-radius:100px;box-shadow:var(--shadow-lg);padding:.4rem 1rem;display:none;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;color:var(--azul)}.load-pill.show{display:flex}
     .load-sp{width:13px;height:13px;border:2px solid var(--azul-borda);border-top-color:var(--azul);border-radius:50%;animation:spin .6s linear infinite}
+    
+    .fl-wrap{margin-bottom:.5rem}
+    .fl-select{width:100%;font-family:var(--font);font-size:.72rem;font-weight:500;color:var(--cinza-txt);background:var(--branco);border:1.5px solid var(--borda);border-radius:6px;padding:.4rem .6rem;outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238896A8' stroke-width='1.3' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .6rem center}.fl-select:focus{border-color:var(--azul)}
+    .fl-search{width:100%;font-family:var(--font);font-size:.72rem;padding:.4rem .6rem .4rem 1.8rem;border:1.5px solid var(--borda);border-radius:6px;outline:none;margin-top:.35rem;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238896A8' stroke-width='2.5'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cline x1='21' y1='21' x2='15.8' y2='15.8'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:.5rem center}.fl-search:focus{border-color:var(--azul)}
+    .fl-results{max-height:150px;overflow-y:auto;margin-top:.3rem;border:1px solid var(--borda);border-radius:6px;display:none}.fl-results.show{display:block}
+    .fl-item{padding:.35rem .6rem;font-size:.65rem;cursor:pointer;transition:background .1s;display:flex;justify-content:space-between;border-bottom:1px solid var(--borda)}.fl-item:last-child{border-bottom:none}.fl-item:hover{background:var(--azul-claro)}
+    .fl-item-name{font-weight:600;color:var(--cinza-txt)}.fl-item-ext{font-size:.55rem;color:var(--cinza-aux)}
+    .fl-clear{font-size:.58rem;font-weight:600;color:var(--vermelho);cursor:pointer;text-align:center;padding:.3rem;display:none;border-top:1px solid var(--borda)}.fl-clear.show{display:block}.fl-clear:hover{background:rgba(192,57,43,.06)}
+    .pp-stat{display:inline-block;background:var(--azul-claro);border:1px solid var(--azul-borda);border-radius:5px;padding:.2rem .5rem;margin:.15rem .15rem 0 0;text-align:center}
+    .pp-stat-v{font-size:.8rem;font-weight:800;color:var(--azul)}.pp-stat-l{font-size:.48rem;font-weight:700;color:var(--cinza-aux);text-transform:uppercase;letter-spacing:.05em}
     .coord{position:absolute;bottom:8px;right:8px;z-index:800;background:rgba(0,45,114,.85);color:#fff;font-size:.55rem;font-weight:600;padding:2px 7px;border-radius:4px;font-variant-numeric:tabular-nums}
 
     .leaflet-popup-content-wrapper{border-radius:10px!important;font-family:var(--font)!important;box-shadow:var(--shadow-lg)!important;border:1.5px solid var(--borda)!important}
@@ -89,19 +99,7 @@
     .mun-label{background:transparent!important;border:none!important;box-shadow:none!important}
     .mun-label div{font-family:var(--font);font-size:.6rem;font-weight:700;color:var(--azul);text-shadow:0 0 4px #fff,0 0 4px #fff;white-space:nowrap;pointer-events:none}
 
-    /* FILTRO RAMAL */
-    .rf{position:absolute;bottom:14px;left:10px;z-index:800;background:var(--branco);border-radius:var(--radius);box-shadow:var(--shadow-lg);width:290px;display:none;flex-direction:column;overflow:hidden;animation:slideIn .3s ease}.rf.show{display:flex}
-    .rf-hdr{padding:.5rem .85rem;background:var(--amarelo);display:flex;align-items:center;gap:.5rem;flex-shrink:0}
-    .rf-ico{font-size:.9rem}.rf-ttl{font-size:.68rem;font-weight:800;color:var(--azul);text-transform:uppercase;letter-spacing:.07em;flex:1}
-    .rf-badge{font-size:.55rem;font-weight:700;background:var(--azul);color:#fff;padding:.15em .5em;border-radius:100px}
-    .rf-body{padding:.6rem .75rem;display:flex;flex-direction:column;gap:.45rem}
-    .rf-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--cinza-aux)}
-    .rf-select{width:100%;font-family:var(--font);font-size:.72rem;padding:.38rem .55rem;border:1.5px solid var(--borda);border-radius:6px;outline:none;color:var(--cinza-txt);background:var(--cinza-bg);cursor:pointer}.rf-select:focus{border-color:var(--amarelo)}
-    .rf-input{width:100%;font-family:var(--font);font-size:.72rem;padding:.38rem .55rem;border:1.5px solid var(--borda);border-radius:6px;outline:none;color:var(--cinza-txt)}.rf-input:focus{border-color:var(--amarelo)}
-    .rf-result{font-size:.62rem;font-weight:600;color:var(--cinza-aux);text-align:center;padding:.2rem 0}
-    .rf-btn{width:100%;font-family:var(--font);font-size:.68rem;font-weight:700;padding:.38rem;border:none;border-radius:6px;cursor:pointer;background:var(--azul-claro);color:var(--azul);transition:background .15s}.rf-btn:hover{background:var(--azul-borda)}
-
-    @media(max-width:540px){.lp{width:240px;right:6px;top:6px}.lp.collapsed{width:38px}.bi{width:calc(100% - 12px);left:6px}.rf{width:calc(100% - 12px);left:6px;bottom:6px}}
+    @media(max-width:540px){.lp{width:240px;right:6px;top:6px}.lp.collapsed{width:38px}.bi{width:calc(100% - 12px);left:6px}}
   </style>
 </head>
 <body>
@@ -135,22 +133,6 @@
   </div>
   <div class="load-pill" id="loadPill"><div class="load-sp"></div><span id="loadTxt">Carregando...</span></div>
   <div class="coord" id="coord">-3.12 S, 60.02 W</div>
-  <!-- FILTRO RAMAIS -->
-  <div class="rf" id="rfPanel">
-    <div class="rf-hdr"><span class="rf-ico">🔍</span><span class="rf-ttl">Filtro — Ramais</span><span class="rf-badge" id="rfCount">0</span></div>
-    <div class="rf-body">
-      <div>
-        <div class="rf-label">Município</div>
-        <select class="rf-select" id="rfMun" onchange="applyRamalFilter()"><option value="">Todos os municípios</option></select>
-      </div>
-      <div>
-        <div class="rf-label">Pesquisar ramal</div>
-        <input class="rf-input" id="rfSearch" type="text" placeholder="Nome do ramal..." oninput="applyRamalFilter()"/>
-      </div>
-      <div class="rf-result" id="rfResult"></div>
-      <button class="rf-btn" onclick="clearRamalFilter()">✕ Limpar filtros</button>
-    </div>
-  </div>
 </div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
@@ -160,12 +142,15 @@
 var AKE_BUILD_LOG=[{build:'1.0.0',tipo:'GENESIS',data:'2026-04-09'},{build:'1.1.0',tipo:'FEATURE',data:'2026-04-09',desc:'Cores PedroP, icones aero/porto, rotulos bairros, AM_MUNICIPIOS, checkbox fill'}];
 
 var REPO='https://raw.githubusercontent.com/leonzordhue/atlas-amazonas/main/';
+var MUN_DATA={"BARCELOS":{"pop":"18834","idh":"0.5","ext":"31.574"},"SANTA ISABEL DO RIO NEGRO":{"pop":"14164","idh":"0.555","ext":"48.769"},"SAO GABRIEL DA CACHOEIRA":{"pop":"51795","idh":"0.663","ext":"71.683"},"BENJAMIN CONSTANT":{"pop":"37648","idh":"0.574","ext":"63.201"},"SANTO ANTONIO DO ICA":{"pop":"28211","idh":"0.571","ext":"43.92"},"SAO PAULO DE OLIVENCA":{"pop":"32967","idh":"0.59","ext":"38.931"},"TONANTINS":{"pop":"19247","idh":"0.571","ext":"35.846"},"TABATINGA":{"pop":"66764","idh":"0.616","ext":"126.921"},"AMATURA":{"pop":"10819","idh":"0.565","ext":"27.028"},"ATALAIA DO NORTE":{"pop":"15314","idh":"0.542","ext":"26.181"},"BARREIRINHA":{"pop":"31051","idh":"0.556","ext":"27.606"},"BOA VISTA DO RAMOS":{"pop":"23785","idh":"0.594","ext":"70.01"},"NHAMUNDA":{"pop":"20136","idh":"0.586","ext":"12.631"},"PARINTINS":{"pop":"96372","idh":"0.658","ext":"199.189"},"SAO SEBASTIAO DO UATUMA":{"pop":"11670","idh":"0.585","ext":"37.801"},"URUCARA":{"pop":"18631","idh":"0.588","ext":"57.585"},"CARAUARI":{"pop":"28742","idh":"0.593","ext":"70.694"},"EIRUNEPE":{"pop":"33170","idh":"0.624","ext":"68.575"},"ENVIRA":{"pop":"17186","idh":"0.56","ext":"64.579"},"GUAJARA":{"pop":"13815","idh":"0.569","ext":"30.83"},"IPIXUNA":{"pop":"24311","idh":"0.555","ext":"33.004"},"ITAMARATI":{"pop":"10937","idh":"0.554","ext":"15.676"},"BORBA":{"pop":"33080","idh":"0.575","ext":"44.14"},"HUMAITA":{"pop":"57473","idh":"0.605","ext":"146.114"},"MANICORE":{"pop":"53914","idh":"0.567","ext":"93.9"},"NOVO ARIPUANA":{"pop":"23818","idh":"0.567","ext":"47.143"},"APUI":{"pop":"20647","idh":"0.637","ext":"98.525"},"ITACOATIARA":{"pop":"103598","idh":"0.644","ext":"164.826"},"ITAPIRANGA":{"pop":"10162","idh":"0.622","ext":"45.61"},"MAUES":{"pop":"61204","idh":"0.593","ext":"74.231"},"NOVA OLINDA DO NORTE":{"pop":"27062","idh":"0.602","ext":"58.686"},"PRESIDENTE FIGUEIREDO":{"pop":"30668","idh":"0.647","ext":"68.915"},"SILVES":{"pop":"11559","idh":"0.613","ext":"22.469"},"URUCURITUBA":{"pop":"23945","idh":"0.598","ext":"53.555"},"BOCA DO ACRE":{"pop":"35447","idh":"0.588","ext":"64.648"},"CANUTAMA":{"pop":"16869","idh":"0.587","ext":"23.282"},"LABREA":{"pop":"45448","idh":"0.553","ext":"95.608"},"PAUINI":{"pop":"19373","idh":"0.588","ext":"28.743"},"TAPAUA":{"pop":"19599","idh":"0.572","ext":"15.993"},"BERURI":{"pop":"20718","idh":"0.593","ext":"31.926"},"CAAPIRANGA":{"pop":"13469","idh":"0.587","ext":"38.079"},"CAREIRO":{"pop":"30792","idh":"0.571","ext":"32.217"},"CAREIRO DA VARZEA":{"pop":"19637","idh":"0.55","ext":"24.31"},"COARI":{"pop":"70616","idh":"0.586","ext":"120.202"},"CODAJAS":{"pop":"23549","idh":"0.558","ext":"40.324"},"IRANDUBA":{"pop":"61163","idh":"0.646","ext":"45.027"},"MANACAPURU":{"pop":"101883","idh":"0.614","ext":"83.077"},"MANAQUIRI":{"pop":"17107","idh":"0.602","ext":"18.614"},"NOVO AIRAO":{"pop":"15761","idh":"0.621","ext":"55.156"},"RIO PRETO DA EVA":{"pop":"24936","idh":"0.622","ext":"109.712"},"ANAMA":{"pop":"9962","idh":"0.594","ext":"10.893"},"ANORI":{"pop":"17194","idh":"0.594","ext":"35.619"},"AUTAZES":{"pop":"41564","idh":"0.592","ext":"88.673"},"FONTE BOA":{"pop":"25871","idh":"0.55","ext":"61.157"},"JAPURA":{"pop":"8858","idh":"0.542","ext":"18.003"},"JURUA":{"pop":"10742","idh":"0.575","ext":"25.336"},"JUTAI":{"pop":"25172","idh":"0.566","ext":"40.412"},"MARAA":{"pop":"15529","idh":"0.566","ext":"19.745"},"TEFE":{"pop":"73669","idh":"0.639","ext":"84.479"},"UARINI":{"pop":"14431","idh":"0.573","ext":"38.976"},"ALVARAES":{"pop":"15866","idh":"0.564","ext":"20.001"},"MANAUS":{"pop":"2063547","idh":"0.737","ext":""}};
+var normN=function(s){return String(s||'').trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase()};
+var ramaisFilterMun=null;
 
 var REG=[
 // RODOVIARIO
 {id:'rod_est',group:'Rodovi\u00e1rio',gc:'#007B3E',gi:'\ud83d\udee3\ufe0f',label:'Rodovias Estaduais',gt:'line',st:{color:'#007B3E',weight:3,opacity:.85},ckColor:'#007B3E',file:'RODOVIAS_ESTADUAIS_AMAZONAS.geojson',pt:function(p){return p['RODOVIA']||'Rodovia'},pf:[{k:'RODOVIA',l:'Rodovia'},{k:'IN\u00cdCIO',l:'In\u00edcio'},{k:'FIM',l:'Fim'},{k:'EXTENS\u00c3O',l:'Ext.(km)'},{k:'SITUA\u00c7\u00c3O',l:'Situa\u00e7\u00e3o'},{k:'TIPO DE RE',l:'Revestimento'},{k:'REGI\u00c3O',l:'Regi\u00e3o'}],on:true},
 {id:'rod_fed',group:'Rodovi\u00e1rio',gc:'#007B3E',gi:'\ud83d\udee3\ufe0f',label:'Rodovias Federais',gt:'line',st:{color:'#C0392B',weight:2.5,opacity:.75},ckColor:'#C0392B',file:'RODOVIAS_FEDERAIS.geojson',pt:function(p){return 'BR-'+(p['Codigo_BR']||'?')},pf:[{k:'Codigo_BR',l:'BR'},{k:'Nome_Tipo_',l:'Tipo'},{k:'Local_Inic',l:'In\u00edcio'},{k:'Local_Fim',l:'Fim'},{k:'Extensao',l:'Ext.(km)'},{k:'Superficie',l:'Superf.'},{k:'Administra',l:'Admin.'}]},
-{id:'ramais',group:'Rodovi\u00e1rio',gc:'#007B3E',gi:'\ud83d\udee3\ufe0f',label:'Ramais SEINFRA',gt:'line-dash',st:{color:'#F5A623',weight:2,opacity:.8,dashArray:'6 4'},ckColor:'#F5A623',file:'RAMAIS_SEINFRA.geojson',pt:function(p){return p['Descri\u00e7\u00e3']||p['Descri\u00e7_1']||'Ramal'},pf:[{k:'Descri\u00e7\u00e3',l:'Nome'},{k:'Munic\u00edpio',l:'Munic\u00edpio'},{k:'Extens\u00e3o',l:'Extens\u00e3o'},{k:'Classifica',l:'Classif.'},{k:'Revestimen',l:'Revestim.'},{k:'Situa\u00e7\u00e3o',l:'Situa\u00e7\u00e3o'},{k:'Prioridade',l:'Prioridade'},{k:'Calha',l:'Calha'}],bi:{title:'\ud83d\udcca Ramais SEINFRA',stats:[{label:'Total Ramais',fn:function(d){return d.features.length}},{label:'Munic\u00edpios',fn:function(d){return new Set(d.features.map(function(f){return f.properties['Munic\u00edpio']}).filter(Boolean)).size}}],bars:[{label:'Classifica\u00e7\u00e3o',field:'Classifica',top:6,color:'#F5A623'},{label:'Calha',field:'Calha',top:8,color:'#002D72'},{label:'Prioridade',field:'Prioridade',top:5,color:'#C0392B'},{label:'Situa\u00e7\u00e3o',field:'Situa\u00e7\u00e3o',top:5,color:'#007B3E'}]}},
+{id:'ramais',group:'Rodovi\u00e1rio',gc:'#007B3E',gi:'\ud83d\udee3\ufe0f',label:'Ramais SEINFRA',gt:'line-dash',st:{color:'#F5A623',weight:2,opacity:.8,dashArray:'6 4'},ckColor:'#F5A623',file:'RAMAIS_SEINFRA.geojson',pt:function(p){return p['Descri\u00e7\u00e3']||p['Descri\u00e7_1']||'Ramal'},pf:[{k:'Descri\u00e7\u00e3',l:'Nome'},{k:'Munic\u00edpio',l:'Munic\u00edpio'},{k:'Extens\u00e3o',l:'Extens\u00e3o'},{k:'Classifica',l:'Classif.'},{k:'Revestimen',l:'Revestim.'},{k:'Situa\u00e7\u00e3o',l:'Situa\u00e7\u00e3o'},{k:'Prioridade',l:'Prioridade'},{k:'Calha',l:'Calha'}],bi:{title:'\ud83d\udcca Ramais SEINFRA',hasFilter:true,stats:[{label:'Total Ramais',fn:function(d){return d.features.length}},{label:'Munic\u00edpios',fn:function(d){return new Set(d.features.map(function(f){return f.properties['Munic\u00edpio']}).filter(Boolean)).size}}],bars:[{label:'Classifica\u00e7\u00e3o',field:'Classifica',top:6,color:'#F5A623'},{label:'Calha',field:'Calha',top:8,color:'#002D72'},{label:'Prioridade',field:'Prioridade',top:5,color:'#C0392B'},{label:'Situa\u00e7\u00e3o',field:'Situa\u00e7\u00e3o',top:5,color:'#007B3E'}]}},
 
 // HIDROVIARIO
 {id:'hidrovias',group:'Hidrovi\u00e1rio',gc:'#2980B9',gi:'\ud83d\udea2',label:'Hidrovias',gt:'line',st:{color:'#2980B9',weight:2.5,opacity:.7},ckColor:'#2980B9',file:'HIDROVIAS.geojson',pt:function(p){return p['name']||p['folders']||'Hidrovia'},pf:[{k:'name',l:'Nome'},{k:'folders',l:'C\u00f3digo SNV'}]},
@@ -176,6 +161,7 @@ var REG=[
 
 // TERRITORIAL
 {id:'municipios',group:'Territorial',gc:'#0E8A7D',gi:'\ud83c\udfe0',label:'Divisas Municipais',gt:'polygon',st:{color:'#0E8A7D',fillColor:'#0E8A7D',fillOpacity:.03,weight:1.5,opacity:.6},ckColor:'#0E8A7D',file:'AM_MUNICIPIOS.geojson',pt:function(p){return p['NM_MUN']||'Munic\u00edpio'},pf:[{k:'NM_MUN',l:'Munic\u00edpio'},{k:'CD_MUN',l:'C\u00f3d. IBGE'},{k:'NM_RGINT',l:'Regi\u00e3o'},{k:'AREA_KM2',l:'\u00c1rea(km\u00b2)'}],labels:{field:'NM_MUN',cls:'mun-label',minZoom:8}},
+{id:'municipios',group:'Territorial',gc:'#0E8A7D',gi:'\ud83c\udfe0',label:'Divisas Municipais',gt:'polygon',st:{color:'#0E8A7D',fillColor:'#0E8A7D',fillOpacity:.03,weight:1.5,opacity:.6},ckColor:'#0E8A7D',file:'AM_MUNICIPIOS.geojson',pt:function(p){return p['NM_MUN']||'Munic\u00edpio'},pf:[],customPopup:true,labels:{field:'NM_MUN',cls:'mun-label',minZoom:8}},
 {id:'bairros',group:'Territorial',gc:'#0E8A7D',gi:'\ud83c\udfe0',label:'Bairros',gt:'polygon',st:{color:'#6C3483',fillColor:'#6C3483',fillOpacity:.08,weight:1,opacity:.5},ckColor:'#6C3483',file:'BAIRROS.geojson',pt:function(p){return p['NM_BAIRRO']||'Bairro'},pf:[{k:'NM_BAIRRO',l:'Bairro'},{k:'NM_MUN',l:'Munic\u00edpio'},{k:'NM_DIST',l:'Distrito'},{k:'AREA_KM2',l:'\u00c1rea(km\u00b2)'}],labels:{field:'NM_BAIRRO',cls:'bairro-label',minZoom:12}},
 {id:'uc',group:'Territorial',gc:'#0E8A7D',gi:'\ud83c\udfe0',label:'Unid. de Conserva\u00e7\u00e3o',gt:'polygon',st:{color:'#007B3E',fillColor:'#007B3E',fillOpacity:.1,weight:1.5,opacity:.6},ckColor:'#007B3E',file:'UNIDADE_DE_CONSERVACAO.geojson',pt:function(p){return p['nome']||'UC'},pf:[{k:'nome',l:'Nome'},{k:'categoria',l:'Categoria'},{k:'grupo',l:'Grupo'},{k:'esfera',l:'Esfera'},{k:'ano_cria',l:'Ano'},{k:'AREA_KM2',l:'\u00c1rea(km\u00b2)'}]},
 
@@ -190,7 +176,47 @@ var aBase='Padr\u00e3o';BASES[aBase].addTo(map);
 
 map.on('mousemove',function(e){var la=e.latlng.lat.toFixed(4),lo=e.latlng.lng.toFixed(4);document.getElementById('coord').textContent=Math.abs(la)+'\u00b0 '+(la<0?'S':'N')+', '+Math.abs(lo)+'\u00b0 '+(lo<0?'W':'E')});
 
-var S={};REG.forEach(function(c){S[c.id]={c:c,lyr:null,lblLyr:null,data:null,ok:false}});
+var S={};REG.forEach(function(c){S[c.id]={c:c,lyr:null,lblLyr:null,data:null,ok:false,filteredLyr:null}});
+
+
+// Municipio enriched popup
+function munPopup(feat,layer){var p=feat.properties;var nome=p['NM_MUN']||'';var area=p['AREA_KM2'];var nk=normN(nome);var md=MUN_DATA[nk]||{};
+var rSt=S['ramais'];var nR=0,extR=0;if(rSt.ok&&rSt.data){rSt.data.features.forEach(function(f){var m=normN(f.properties['Munic\u00edpio']||'');if(m===nk){nR++;var e=f.properties['Extens\u00e3o'];if(e)extR+=parseFloat(String(e).replace(',','.'))}});}
+var pop=md.pop?parseInt(md.pop).toLocaleString('pt-BR'):'--';var idh=md.idh||'--';var extV=md.ext||'--';var aFmt=area?parseFloat(area).toLocaleString('pt-BR',{maximumFractionDigits:0}):'--';
+var h='<div class="pp-t">'+nome+'</div><div class="pp-r"><span class="pp-k">IBGE:</span> <span class="pp-v">'+p['CD_MUN']+'</span></div><div class="pp-r"><span class="pp-k">Regi\u00e3o:</span> <span class="pp-v">'+(p['NM_RGINT']||'--')+'</span></div>';
+h+='<div style="display:flex;flex-wrap:wrap;margin-top:6px">';
+h+='<div class="pp-stat"><div class="pp-stat-v">'+pop+'</div><div class="pp-stat-l">Habitantes</div></div>';
+h+='<div class="pp-stat"><div class="pp-stat-v">'+aFmt+'</div><div class="pp-stat-l">\u00c1rea km\u00b2</div></div>';
+h+='<div class="pp-stat"><div class="pp-stat-v">'+idh+'</div><div class="pp-stat-l">IDH</div></div>';
+h+='<div class="pp-stat"><div class="pp-stat-v">'+nR+'</div><div class="pp-stat-l">Ramais</div></div>';
+h+='<div class="pp-stat"><div class="pp-stat-v">'+extR.toFixed(1)+'</div><div class="pp-stat-l">km Ramais</div></div>';
+h+='<div class="pp-stat"><div class="pp-stat-v">'+extV+'</div><div class="pp-stat-l">km Vi\u00e1rio</div></div></div>';
+layer.bindPopup(h,{maxWidth:320}).openPopup();}
+
+// Ramal filter functions
+function filterRamaisMun(mun){var st=S['ramais'];if(!st.ok)return;if(st.filteredLyr){map.removeLayer(st.filteredLyr);st.filteredLyr=null}
+if(!mun){if(st.lyr&&!map.hasLayer(st.lyr))st.lyr.addTo(map);ramaisFilterMun=null;updateBiFilter(st.data.features);document.getElementById('flClear').classList.remove('show');return}
+if(st.lyr&&map.hasLayer(st.lyr))map.removeLayer(st.lyr);ramaisFilterMun=mun;
+var filtered=st.data.features.filter(function(f){return f.properties['Munic\u00edpio']===mun});
+st.filteredLyr=mkLyr(st.c,{type:'FeatureCollection',features:filtered});st.filteredLyr.addTo(map);
+if(filtered.length>0){var b=st.filteredLyr.getBounds();if(b.isValid())map.fitBounds(b,{padding:[50,50]})}
+updateBiFilter(filtered);document.getElementById('flClear').classList.add('show');}
+
+function updateBiFilter(feats){var el=document.getElementById('biStats');if(el)el.innerHTML='<div class="bi-stat"><div class="bi-stat-val">'+feats.length.toLocaleString('pt-BR')+'</div><div class="bi-stat-lbl">Ramais</div></div><div class="bi-stat"><div class="bi-stat-val">'+new Set(feats.map(function(f){return f.properties['Munic\u00edpio']}).filter(Boolean)).size+'</div><div class="bi-stat-lbl">Munic\u00edpios</div></div>';
+var bel=document.getElementById('biBars');if(bel&&S['ramais'].c.bi.bars){var h='';S['ramais'].c.bi.bars.forEach(function(bar){var counts={};feats.forEach(function(f){var v=f.properties[bar.field];if(v!=null&&v!==''){var k=String(v).trim().substring(0,25);counts[k]=(counts[k]||0)+1}});var sorted=Object.entries(counts).sort(function(a,b){return b[1]-a[1]}).slice(0,bar.top);if(!sorted.length)return;var mx=sorted[0][1];h+='<div class="bi-section">'+bar.label+'</div><div class="bi-bar-wrap">';sorted.forEach(function(e){h+='<div class="bi-bar-row"><span class="bi-bar-label">'+e[0]+'</span><div class="bi-bar-track"><div class="bi-bar-fill" style="width:'+Math.round(e[1]/mx*100)+'%;background:'+bar.color+'"></div></div><span class="bi-bar-val">'+e[1]+'</span></div>'});h+='</div>'});bel.innerHTML=h}}
+
+function searchRamal(q){q=q.toLowerCase().trim();var st=S['ramais'];if(!st.ok)return;var res=document.getElementById('flResults');if(!q){res.classList.remove('show');return}
+var feats=st.data.features.filter(function(f){var n=(f.properties['Descri\u00e7\u00e3']||f.properties['Descri\u00e7_1']||'').toLowerCase();if(!n.includes(q))return false;if(ramaisFilterMun&&f.properties['Munic\u00edpio']!==ramaisFilterMun)return false;return true}).slice(0,15);
+if(!feats.length){res.innerHTML='<div class="fl-item"><span class="fl-item-name" style="color:var(--cinza-aux)">Nenhum ramal encontrado</span></div>';res.classList.add('show');return}
+res.innerHTML=feats.map(function(f){var n=f.properties['Descri\u00e7\u00e3']||f.properties['Descri\u00e7_1']||'';var ext=f.properties['Extens\u00e3o']||'';return '<div class="fl-item" onclick="zoomToRamal(this.dataset.n)" data-n="'+n.replace(/"/g,'&quot;')+'"><span class="fl-item-name">'+n+'</span><span class="fl-item-ext">'+ext+' km</span></div>'}).join('');res.classList.add('show')}
+
+function zoomToRamal(nome){var st=S['ramais'];if(!st.ok)return;var feat=st.data.features.find(function(f){return(f.properties['Descri\u00e7\u00e3']||f.properties['Descri\u00e7_1']||'')===nome});if(!feat)return;
+if(st.filteredLyr){map.removeLayer(st.filteredLyr);st.filteredLyr=null}if(st.lyr&&map.hasLayer(st.lyr))map.removeLayer(st.lyr);
+st.filteredLyr=L.geoJSON({type:'FeatureCollection',features:[feat]},{style:function(){return{color:'#FF0000',weight:4,opacity:1}},onEachFeature:function(f,l){mkPop(f,l,st.c)}});st.filteredLyr.addTo(map);
+var b=st.filteredLyr.getBounds();if(b.isValid())map.fitBounds(b,{padding:[80,80]});document.getElementById('flClear').classList.add('show');document.getElementById('flResults').classList.remove('show')}
+
+function clearRamalFilter(){var st=S['ramais'];if(st.filteredLyr){map.removeLayer(st.filteredLyr);st.filteredLyr=null}if(st.lyr&&!map.hasLayer(st.lyr))st.lyr.addTo(map);ramaisFilterMun=null;
+document.getElementById('flMunSelect').value='';document.getElementById('flRamalSearch').value='';document.getElementById('flResults').classList.remove('show');document.getElementById('flClear').classList.remove('show');updateBiFilter(st.data.features)}
 
 function buildPanel(){var body=document.getElementById('lpBody');var G={};REG.forEach(function(c){if(!G[c.group])G[c.group]={gc:c.gc,gi:c.gi,items:[]};G[c.group].items.push(c)});var h='';
 Object.keys(G).forEach(function(gn){var g=G[gn];var ao=g.items.some(function(c){return c.on});
@@ -215,10 +241,9 @@ if(isOn){if(!st.ok){showLoad('Carregando '+st.c.label+'...');fetch(REPO+st.c.fil
 
 function addLayer(st){var c=st.c;st.lyr=mkLyr(c,st.data);st.lyr.addTo(map);
 if(c.labels){st.lblLyr=L.layerGroup();addLabels(st);st.lblLyr.addTo(map);map.on('zoomend',function(){toggleLabels(st)})}
-if(c.bi)buildBi(c,st.data);
-if(c.id==='ramais')openRamalFilter(st.data)}
+if(c.bi)buildBi(c,st.data)}
 
-function rmLayer(st){if(st.lyr){map.removeLayer(st.lyr);st.lyr=null}if(st.lblLyr){map.removeLayer(st.lblLyr);st.lblLyr=null}if(st.c.bi)closeBi();if(st.c.id==='ramais')closeRamalFilter()}
+function rmLayer(st){if(st.lyr){map.removeLayer(st.lyr);st.lyr=null}if(st.lblLyr){map.removeLayer(st.lblLyr);st.lblLyr=null}if(st.c.bi)closeBi()}
 
 function addLabels(st){var c=st.c;st.data.features.forEach(function(f){var name=f.properties[c.labels.field];if(!name)return;var geo=f.geometry;var center=getCentroid(geo);if(!center)return;var lbl=L.marker(center,{icon:L.divIcon({className:c.labels.cls,html:'<div>'+name+'</div>',iconSize:[0,0]})});st.lblLyr.addLayer(lbl)});toggleLabels(st)}
 
@@ -234,13 +259,16 @@ return L.geoJSON(data,{style:function(){return{color:c.st.color,weight:c.st.weig
 
 function mkPop(feat,layer,c){var p=feat.properties||{};
 if(c.gt!=='point'&&c.gt!=='icon'){layer.on('mouseover',function(){layer.setStyle({weight:(c.st.weight||2)+2,opacity:1})});layer.on('mouseout',function(){layer.setStyle({weight:c.st.weight||2,opacity:c.st.opacity||.8})})}
-layer.on('click',function(){var t;try{t=c.pt(p)}catch(e){t=c.label}
+layer.on('click',function(){if(c.customPopup&&c.id==='municipios'){return munPopup(feat,layer)}var t;try{t=c.pt(p)}catch(e){t=c.label}
 var rows=(c.pf||[]).map(function(fd){var v=p[fd.k];if(v===null||v===undefined||v==='')return '';var d=typeof v==='number'?v.toLocaleString('pt-BR'):v;return '<div class="pp-r"><span class="pp-k">'+fd.l+':</span> <span class="pp-v">'+d+'</span></div>'}).filter(Boolean).join('');
 layer.bindPopup('<div class="pp-t">'+t+'</div>'+(rows||'<span style="color:#aaa;font-size:.65rem">Sem dados</span>')).openPopup()})}
 
 function buildBi(c,data){var bi=c.bi;document.getElementById('biTitle').textContent=bi.title;var h='';
-if(bi.stats){h+='<div class="bi-stat-grid">';bi.stats.forEach(function(s){var v=s.fn(data);h+='<div class="bi-stat"><div class="bi-stat-val">'+(typeof v==='number'?v.toLocaleString('pt-BR'):v)+'</div><div class="bi-stat-lbl">'+s.label+'</div></div>'});h+='</div>'}
-if(bi.bars){bi.bars.forEach(function(bar){var counts={};data.features.forEach(function(f){var v=f.properties[bar.field];if(v!==null&&v!==undefined&&v!==''){var key=String(v).trim().substring(0,25);counts[key]=(counts[key]||0)+1}});
+if(bi.hasFilter){var munis=[...new Set(data.features.map(function(f){return f.properties['Munic\u00edpio']}).filter(Boolean))].sort();
+h+='<div class="fl-wrap"><select class="fl-select" id="flMunSelect" onchange="filterRamaisMun(this.value)"><option value="">Todos os munic\u00edpios ('+munis.length+')</option>';munis.forEach(function(m){h+='<option value="'+m+'">'+m+'</option>'});
+h+='</select><input class="fl-search" id="flRamalSearch" type="text" placeholder="Buscar ramal pelo nome..." oninput="searchRamal(this.value)"/><div class="fl-results" id="flResults"></div><div class="fl-clear" id="flClear" onclick="clearRamalFilter()">\u2716 Limpar filtro</div></div>';}
+if(bi.stats){h+='<div class="bi-stat-grid" id="biStats">';bi.stats.forEach(function(s){var v=s.fn(data);h+='<div class="bi-stat"><div class="bi-stat-val">'+(typeof v==='number'?v.toLocaleString('pt-BR'):v)+'</div><div class="bi-stat-lbl">'+s.label+'</div></div>'});h+='</div>'}
+if(bi.bars){h+='<div id="biBars">';bi.bars.forEach(function(bar){var counts={};data.features.forEach(function(f){var v=f.properties[bar.field];if(v!==null&&v!==undefined&&v!==''){var key=String(v).trim().substring(0,25);counts[key]=(counts[key]||0)+1}});
 var sorted=Object.entries(counts).sort(function(a,b){return b[1]-a[1]}).slice(0,bar.top);if(!sorted.length)return;var mx=sorted[0][1];
 h+='<div class="bi-section">'+bar.label+'</div><div class="bi-bar-wrap">';sorted.forEach(function(e){var pct=Math.round(e[1]/mx*100);h+='<div class="bi-bar-row"><span class="bi-bar-label" title="'+e[0]+'">'+e[0]+'</span><div class="bi-bar-track"><div class="bi-bar-fill" style="width:'+pct+'%;background:'+bar.color+'"></div></div><span class="bi-bar-val">'+e[1]+'</span></div>'});h+='</div>'})}
 document.getElementById('biBody').innerHTML=h;document.getElementById('biPanel').classList.add('show')}
@@ -256,45 +284,6 @@ function tgGrp(el){el.classList.toggle('open')}
 function updCnt(){document.getElementById('lpCnt').textContent=document.querySelectorAll('.li.on[data-id]').length}
 function showLoad(t){document.getElementById('loadTxt').textContent=t;document.getElementById('loadPill').classList.add('show')}
 function hideLoad(){document.getElementById('loadPill').classList.remove('show')}
-
-// ===== FILTRO RAMAIS =====
-function openRamalFilter(data){
-  var muns=[];
-  data.features.forEach(function(f){var m=f.properties['Município']||f.properties['Municipio'];if(m&&muns.indexOf(m)<0)muns.push(m)});
-  muns.sort(function(a,b){return a.localeCompare(b,'pt-BR')});
-  var sel=document.getElementById('rfMun');
-  sel.innerHTML='<option value="">Todos os municípios</option>';
-  muns.forEach(function(m){var o=document.createElement('option');o.value=m;o.textContent=m;sel.appendChild(o)});
-  document.getElementById('rfSearch').value='';
-  document.getElementById('rfPanel').classList.add('show');
-  applyRamalFilter();
-}
-function closeRamalFilter(){document.getElementById('rfPanel').classList.remove('show')}
-
-function applyRamalFilter(){
-  var st=S['ramais'];if(!st||!st.lyr)return;
-  var mun=document.getElementById('rfMun').value.toLowerCase().trim();
-  var srch=document.getElementById('rfSearch').value.toLowerCase().trim();
-  var total=0,shown=0;
-  st.lyr.eachLayer(function(l){
-    var p=l.feature.properties||{};
-    var pm=(p['Município']||p['Municipio']||'').toLowerCase();
-    var pn=(p['Descrição']||p['Descri\u00e7\u00e3']||p['Descri\u00e7_1']||'').toLowerCase();
-    var okM=!mun||pm===mun;
-    var okS=!srch||pn.includes(srch)||pm.includes(srch);
-    total++;
-    if(okM&&okS){l.setStyle({opacity:.8,weight:2});shown++;if(l._path)l._path.style.display=''}
-    else{l.setStyle({opacity:0,weight:0});if(l._path)l._path.style.display='none'}
-  });
-  document.getElementById('rfCount').textContent=shown;
-  document.getElementById('rfResult').textContent=shown===total?'Exibindo todos os '+total+' ramais':'Exibindo '+shown+' de '+total+' ramais';
-}
-function clearRamalFilter(){
-  document.getElementById('rfMun').value='';
-  document.getElementById('rfSearch').value='';
-  applyRamalFilter();
-}
-// ===== FIM FILTRO RAMAIS =====
 
 buildPanel();
 document.querySelectorAll('.li.on[data-id]').forEach(function(el){el.classList.remove('on');var ck=el.querySelector('.li-ck');ck.textContent='';ck.style.background='';ck.style.borderColor='';tgLyr(el.dataset.id,el)});
