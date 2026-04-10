@@ -160,7 +160,6 @@ var REG=[
 {id:'aerodromos',group:'Aeroportu\u00e1rio',gc:'#E67E22',gi:'\u2708\ufe0f',label:'Aer\u00f3dromos SEINFRA',gt:'icon',icon:'\u2708\ufe0f',st:{color:'#002D72'},ckColor:'#002D72',file:'AERODROMOS_SEINFRA.geojson',pt:function(p){return p['Nome']||'Aer\u00f3dromo'},pf:[{k:'Nome',l:'Nome'},{k:'CIAD',l:'CIAD'},{k:'Outorga',l:'Outorga'},{k:'Compriment',l:'Pista(m)'},{k:'Largura 1',l:'Largura(m)'}]},
 
 // TERRITORIAL
-{id:'municipios',group:'Territorial',gc:'#0E8A7D',gi:'\ud83c\udfe0',label:'Divisas Municipais',gt:'polygon',st:{color:'#0E8A7D',fillColor:'#0E8A7D',fillOpacity:.03,weight:1.5,opacity:.6},ckColor:'#0E8A7D',file:'AM_MUNICIPIOS.geojson',pt:function(p){return p['NM_MUN']||'Munic\u00edpio'},pf:[{k:'NM_MUN',l:'Munic\u00edpio'},{k:'CD_MUN',l:'C\u00f3d. IBGE'},{k:'NM_RGINT',l:'Regi\u00e3o'},{k:'AREA_KM2',l:'\u00c1rea(km\u00b2)'}],labels:{field:'NM_MUN',cls:'mun-label',minZoom:8}},
 {id:'municipios',group:'Territorial',gc:'#0E8A7D',gi:'\ud83c\udfe0',label:'Divisas Municipais',gt:'polygon',st:{color:'#0E8A7D',fillColor:'#0E8A7D',fillOpacity:.03,weight:1.5,opacity:.6},ckColor:'#0E8A7D',file:'AM_MUNICIPIOS.geojson',pt:function(p){return p['NM_MUN']||'Munic\u00edpio'},pf:[],customPopup:true,labels:{field:'NM_MUN',cls:'mun-label',minZoom:8}},
 {id:'bairros',group:'Territorial',gc:'#0E8A7D',gi:'\ud83c\udfe0',label:'Bairros',gt:'polygon',st:{color:'#6C3483',fillColor:'#6C3483',fillOpacity:.08,weight:1,opacity:.5},ckColor:'#6C3483',file:'BAIRROS.geojson',pt:function(p){return p['NM_BAIRRO']||'Bairro'},pf:[{k:'NM_BAIRRO',l:'Bairro'},{k:'NM_MUN',l:'Munic\u00edpio'},{k:'NM_DIST',l:'Distrito'},{k:'AREA_KM2',l:'\u00c1rea(km\u00b2)'}],labels:{field:'NM_BAIRRO',cls:'bairro-label',minZoom:12}},
 {id:'uc',group:'Territorial',gc:'#0E8A7D',gi:'\ud83c\udfe0',label:'Unid. de Conserva\u00e7\u00e3o',gt:'polygon',st:{color:'#007B3E',fillColor:'#007B3E',fillOpacity:.1,weight:1.5,opacity:.6},ckColor:'#007B3E',file:'UNIDADE_DE_CONSERVACAO.geojson',pt:function(p){return p['nome']||'UC'},pf:[{k:'nome',l:'Nome'},{k:'categoria',l:'Categoria'},{k:'grupo',l:'Grupo'},{k:'esfera',l:'Esfera'},{k:'ano_cria',l:'Ano'},{k:'AREA_KM2',l:'\u00c1rea(km\u00b2)'}]},
@@ -181,7 +180,8 @@ var S={};REG.forEach(function(c){S[c.id]={c:c,lyr:null,lblLyr:null,data:null,ok:
 
 // Municipio enriched popup
 function munPopup(feat,layer){var p=feat.properties;var nome=p['NM_MUN']||'';var area=p['AREA_KM2'];var nk=normN(nome);var md=MUN_DATA[nk]||{};
-var rSt=S['ramais'];var nR=0,extR=0;if(rSt.ok&&rSt.data){rSt.data.features.forEach(function(f){var m=normN(f.properties['Munic\u00edpio']||'');if(m===nk){nR++;var e=f.properties['Extens\u00e3o'];if(e)extR+=parseFloat(String(e).replace(',','.'))}});}
+var rSt=S['ramais'];
+function renderPopup(nR,extR){
 var pop=md.pop?parseInt(md.pop).toLocaleString('pt-BR'):'--';var idh=md.idh||'--';var extV=md.ext||'--';var aFmt=area?parseFloat(area).toLocaleString('pt-BR',{maximumFractionDigits:0}):'--';
 var h='<div class="pp-t">'+nome+'</div><div class="pp-r"><span class="pp-k">IBGE:</span> <span class="pp-v">'+p['CD_MUN']+'</span></div><div class="pp-r"><span class="pp-k">Regi\u00e3o:</span> <span class="pp-v">'+(p['NM_RGINT']||'--')+'</span></div>';
 h+='<div style="display:flex;flex-wrap:wrap;margin-top:6px">';
@@ -192,6 +192,9 @@ h+='<div class="pp-stat"><div class="pp-stat-v">'+nR+'</div><div class="pp-stat-
 h+='<div class="pp-stat"><div class="pp-stat-v">'+extR.toFixed(1)+'</div><div class="pp-stat-l">km Ramais</div></div>';
 h+='<div class="pp-stat"><div class="pp-stat-v">'+extV+'</div><div class="pp-stat-l">km Vi\u00e1rio</div></div></div>';
 layer.bindPopup(h,{maxWidth:320}).openPopup();}
+function countRamais(data){var nR=0,extR=0;data.features.forEach(function(f){var m=normN(f.properties['\u004d\u0075\u006e\u0069\u0063\u00ed\u0070\u0069\u006f']||'');if(m===nk){nR++;var e=f.properties['Extens\u00e3o'];if(e)extR+=parseFloat(String(e).replace(',','.'))}});return{n:nR,e:extR}}
+if(rSt.ok&&rSt.data){var rc=countRamais(rSt.data);renderPopup(rc.n,rc.e)}
+else{fetch(REPO+rSt.c.file).then(function(r){return r.json()}).then(function(data){rSt.data=data;rSt.ok=true;var rc=countRamais(data);renderPopup(rc.n,rc.e)}).catch(function(){renderPopup(0,0)})}}
 
 // Ramal filter functions
 function filterRamaisMun(mun){var st=S['ramais'];if(!st.ok)return;if(st.filteredLyr){map.removeLayer(st.filteredLyr);st.filteredLyr=null}
