@@ -124,7 +124,7 @@
     header.site-header { background: #fff; padding: 0.85rem 2rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 2.5px solid var(--azul); position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 20px rgba(26,43,94,0.08); }
     header.site-header .header-brand { display: flex; align-items: center; gap: 1.1rem; }
     .brand-gov { display: flex; align-items: center; gap: 0.65rem; }
-    .brand-brasao { height: 50px; width: auto; display: block; }
+    .brand-marca { height: 54px; width: auto; display: block; object-fit: contain; }
     .brand-gov-text { display: flex; flex-direction: column; line-height: 1; gap: 0.1rem; }
     .brand-gov-label { font-family: var(--font-cond); font-size: 0.7rem; font-weight: 700; color: var(--verde); letter-spacing: 0.12em; text-transform: uppercase; }
     .brand-gov-estado { font-family: var(--font-cond); font-size: 1.45rem; font-weight: 900; color: var(--azul); letter-spacing: 0.02em; line-height: 1; }
@@ -149,7 +149,7 @@
       header.site-header { padding: 0.55rem 1rem; }
       .topbar-gov { padding: 0.35rem 1rem; }
       .topbar-gov-text { display: none; }
-      .brand-brasao { height: 36px; }
+      .brand-marca { height: 38px; }
       .brand-gov-estado { font-size: 1.05rem; }
       .brand-gov-label, .brand-gov-slogan { font-size: 0.55rem; }
       .brand-seinfra-name { font-size: 0.82rem; }
@@ -173,20 +173,10 @@
 </div>
 <header class="site-header">
   <div class="header-brand">
-    <div class="brand-gov">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Bras%C3%A3o_do_Amazonas.svg/240px-Bras%C3%A3o_do_Amazonas.svg.png"
-           alt="Brasão do Amazonas" class="brand-brasao"
-           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div style="display:none;width:50px;height:50px;border-radius:50%;background:var(--azul);color:var(--amarelo);align-items:center;justify-content:center;font-family:var(--font-head,'Lexend Zetta',sans-serif);font-size:.9rem;font-weight:900;flex-shrink:0;letter-spacing:-.02em">AM</div>
-      <div class="brand-gov-text">
-        <div class="brand-gov-label">Governo do</div>
-        <div class="brand-gov-estado">Amazonas</div>
-        <div class="brand-gov-slogan">A Força da Nossa Gente</div>
-      </div>
-    </div>
-    <div class="brand-divider"></div>
-    <div class="brand-seinfra">
-      <div class="brand-seinfra-pre">Secretaria de</div>
+    <img src="https://leonzordhue.github.io/atlas-amazonas/assets/marca_gov_seinfra.png"
+           alt="Secretaria de Infraestrutura · Governo do Amazonas"
+           class="brand-marca"
+           onerror="this.src='https://leonzordhue.github.io/atlas-amazonas/assets/marca_gov_seinfra_branca.png'"/>
       <div class="brand-seinfra-name">Infraestrutura</div>
     </div>
   </div>
