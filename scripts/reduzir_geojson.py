@@ -60,6 +60,26 @@ def arred_coords(c, casas=6):
     return [arred_coords(x, casas) for x in c]
 
 
+def _hav_km(lon1, lat1, lon2, lat2):
+    from math import radians, sin, cos, asin, sqrt
+    lon1, lat1, lon2, lat2 = map(radians, (lon1, lat1, lon2, lat2))
+    a = sin((lat2 - lat1) / 2) ** 2 + cos(lat1) * cos(lat2) * sin((lon2 - lon1) / 2) ** 2
+    return 2 * 6371.0088 * asin(sqrt(a))
+
+
+def comprimento_km(geom):
+    """Comprimento geodésico (haversine) de LineString/MultiLineString, em km."""
+    if not geom:
+        return 0.0
+    coords = geom.get("coordinates") or []
+    linhas = [coords] if geom["type"] == "LineString" else coords
+    total = 0.0
+    for linha in linhas:
+        for i in range(1, len(linha)):
+            total += _hav_km(linha[i - 1][0], linha[i - 1][1], linha[i][0], linha[i][1])
+    return total
+
+
 def processa(fn):
     with open(os.path.join(ORIGEM, fn), encoding="utf-8") as fh:
         gj = json.load(fh)
@@ -89,6 +109,13 @@ def processa(fn):
                     continue
             novo[k2] = v
         g = f.get("geometry")
+        # HIDROVIAS não tem atributos úteis (export SNV aquaviário sem tabela);
+        # a extensão é derivável da geometria — dado real, não inventado.
+        # Chave 'extensao' = a que o módulo de hidrovias do hub já consome.
+        if fn == "HIDROVIAS.geojson" and g:
+            km = comprimento_km(g)
+            if km > 0:
+                novo["extensao"] = round(km, 1)
         saida.append({
             "type": "Feature",
             "properties": novo,
