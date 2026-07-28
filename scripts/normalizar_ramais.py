@@ -55,8 +55,11 @@ RENOMEAR = {
 
 NUMERICAS = {"numero", "extensao_km", "extensao_obra_km", "custo_estimado", "custo_contratado"}
 
-# duplicatas descartadas — divergências são reportadas
-DUPLICADAS = ["CÓDIGO_2", "Número_2", "Descriç_1"]
+# Colunas duplicadas do export. Nas 13 divergências reais, a 2ª coluna é a que
+# confere com a planilha oficial ('Ramais'!A:BK, conferido linha a linha via
+# Sheets API em 2026-07-28: RMBRR de Barreirinha, "SOL NASCENTE", "COLÔNIA",
+# "ESTRADA BORBA MAPIÁ" etc.) — em divergência, a duplicata vence.
+DUPLICADAS = [("CÓDIGO", "CÓDIGO_2"), ("Número", "Número_2"), ("Descriçã", "Descriç_1")]
 
 
 def num_br(v):
@@ -98,14 +101,17 @@ def main():
     for f in feats:
         p = f.get("properties") or {}
 
-        # audita duplicatas antes de descartar
-        a = (p.get("CÓDIGO"), p.get("Número"), p.get("Descriçã"))
-        b = (p.get("CÓDIGO_2"), p.get("Número_2"), p.get("Descriç_1"))
+        # divergência real entre duplicatas -> adota a 2ª coluna (= planilha oficial)
+        a = tuple(p.get(k) for k, _ in DUPLICADAS)
+        b = tuple(p.get(k2) for _, k2 in DUPLICADAS)
         if a != b and any(x is not None for x in b):
             au = tuple(str(x).upper().strip() for x in a)
             bu = tuple(str(x).upper().strip() for x in b)
             if au != bu:
                 divergencias.append((a, b))
+                for (k, k2) in DUPLICADAS:
+                    if p.get(k2) is not None:
+                        p[k] = p[k2]
 
         novo = {}
         for velha, nova in RENOMEAR.items():
@@ -141,10 +147,10 @@ def main():
     print(f"sanidade: nome={com_nome} · extensao_km numérica={com_ext} · municipio={com_mun}")
 
     if divergencias:
-        print(f"\nAVISO — {len(divergencias)} divergência(s) reais entre colunas duplicadas "
-              f"(1ª coluna mantida como canônica; corrigir na planilha oficial):")
+        print(f"\n{len(divergencias)} divergência(s) entre colunas duplicadas — "
+              f"adotada a 2ª coluna, que confere com a planilha oficial:")
         for a, b in divergencias:
-            print(f"  mantido: {a}\n  descartado: {b}")
+            print(f"  adotado (planilha): {b}\n  descartado (export): {a}")
 
 
 if __name__ == "__main__":
